@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(45deg, #fffde5 20%, #2c3e50 80%);
+        }
+        header {
+            background-color: #4682b4;
+            color: white;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+        }
+        footer a {
+            color: #9aa3ad;
+        }
+        footer a:hover {
+            color: white;
+        }
+        .checkbox-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="bg-white shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center py-3">
+        <div class="d-flex align-items-center">
+            <a href="/home" style="text-decoration: none;">
+                <img th:src="@{/images/img/Star-Photoroom.png}" alt="Logo" width="40" height="40" class="me-3">
+                <span class="fw-bold fs-3 text-dark">LaptopStore</span>
+            </a>
+        </div>
+
+        <div class="input-group w-50">
+            <input type="text" class="form-control" placeholder="Tìm sản phẩm ...">
+            <button class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="d-flex gap-4 align-items-center">
+            <div class="d-flex gap-3">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Tài khoản </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item d-flex align-items-center justify-content-between">
+                            <span class="text-primary">Xin Chào: Nguyễn Văn A</span>
+                            <i class="bi bi-person-circle"></i>
+                        </li>
+                        <li><a href="/changepass" class="dropdown-item" >Đổi mật khẩu</a></li>
+                        <li><a href="/info" class="dropdown-item" >Đổi thông tin</a></li>
+                        <li><a href="/register" class="dropdown-item" >Đăng xuất</a></li>
+                        <li><a href="/login" class="dropdown-item" >Đăng nhập</a></li>
+                        <li><a href="/register" class="dropdown-item" >Đăng ký</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="/cart" class="text-dark text-decoration-none"><i class="fas fa-shopping-basket fs-5"></i></a>
+        </div>
+    </div>
+</header>
+
+
+<!-- Main Content -->
+<main class="container my-5">
+    <h2 class="mb-4">Giỏ hàng</h2>
+
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <!-- Product 1 -->
+            <div class="card mb-3 position-relative">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="form-check-input product-checkbox" data-price="109.99">
+                </div>
+                <div class="position-absolute top-0 start-0 p-2">
+                    <i class="fas fa-trash-alt text-danger" style="cursor: pointer;" onclick="deleteProduct(this)"></i>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-start">
+                            <img th:src="@{/images/img/8fdeb2fc285cba8a316cb66370635e46.jpg}" alt="GeoPad 110" class="me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h5 class="card-title">Máy tính xách tay gọn nhẹ</h5>
+                                <p class="card-text">Personal trong 1 năm</p>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <p class="fw-bold mt-3" data-price="109.99">3,189,710 VND</p>
+                            <div class="input-group mb-2">
+                                <button class="btn btn-outline-secondary">-</button>
+                                <input type="text" class="form-control text-center" value="1" style="width: 60px;">
+                                <button class="btn btn-outline-secondary">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="card mb-3 position-relative">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="form-check-input product-checkbox" data-price="32.99">
+                </div>
+                <div class="position-absolute top-0 start-0 p-2">
+                    <i class="fas fa-trash-alt text-danger" style="cursor: pointer;" onclick="deleteProduct(this)"></i>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-start">
+                            <img th:src="@{/images/img/8fdeb2fc285cba8a316cb66370635e46.jpg}" alt="Modern USB Headset" class="me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h5 class="card-title">Máy tính đẹp , đa năng</h5>
+                                <p class="card-text">On-Ear có Micro khử tiếng ồn - Màu đen</p>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <p class="fw-bold mt-3" data-price="32.99">956,710 VND</p>
+                            <div class="input-group mb-2">
+                                <button class="btn btn-outline-secondary">-</button>
+                                <input type="text" class="form-control text-center" value="1" style="width: 60px;">
+                                <button class="btn btn-outline-secondary">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng tiền</h5>
+                    <p>Tổng giá sản phẩm: <span id="total-price">0 VND</span></p>
+                    <p>VAT (10%): <span id="vat-price">0 VND</span></p>
+                    <hr>
+                    <h6 class="fw-bold">Tổng cộng: <span id="final-price">0 VND</span></h6>
+                    <a href="/payment">
+                        <button class="btn btn-primary w-100 mt-3">Thanh toán</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="my-5">
+        <h3>Mặc hàng khác </h3>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <img th:src="@{/images/img/8fdeb2fc285cba8a316cb66370635e46.jpg}" class="card-img-top" alt="Balo Lenovo">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Máy tính đẹp</h5>
+                        <p class="text-muted">300,000 VND</p>
+                        <button class="btn btn-outline-primary">Thêm +</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img th:src="@{/images/img/8fdeb2fc285cba8a316cb66370635e46.jpg}" class="card-img-top" alt="Balo Lenovo">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Máy tính đẹp</h5>
+                        <p class="text-muted">300,000 VND</p>
+                        <button class="btn btn-outline-primary">Thêm +</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img th:src="@{/images/img/8fdeb2fc285cba8a316cb66370635e46.jpg}" class="card-img-top" alt="Balo Lenovo">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Máy tính đẹp</h5>
+                        <p class="text-muted">300,000 VND</p>
+                        <button class="btn btn-outline-primary">Thêm +</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img th:src="@{/images/img/8fdeb2fc285cba8a316cb66370635e46.jpg}" class="card-img-top" alt="Balo Lenovo">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Máy tính đẹp</h5>
+                        <p class="text-muted">300,000 VND</p>
+                        <button class="btn btn-outline-primary">Thêm +</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+</main>
+<footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row">
+            <!-- About Store -->
+            <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                <h5 class="fw-bold mb-3 text-primary">Về Chúng Tôi</h5>
+                <p class="text-muted">Chúng tôi cung cấp các dòng laptop chất lượng, giúp bạn chọn lựa thiết bị phù hợp với nhu cầu công việc và giải trí.</p>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                <h5 class="fw-bold mb-3 text-primary">Thông Tin Liên Hệ</h5>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-geo-alt"></i> 123 Đường Laptop, Quận 1, TP.HCM</li>
+                    <li><i class="bi bi-telephone"></i> 0901 234 567</li>
+                    <li><i class="bi bi-envelope"></i> <a href="mailto:support@laptopstore.com" class="text-white text-decoration-none">support@laptopstore.com</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media Links (Optional) -->
+            <div class="col-md-12 col-lg-4 text-center">
+                <h5 class="fw-bold mb-3 text-primary">Theo Dõi Chúng Tôi</h5>
+                <div>
+                    <a href="#" class="text-white mx-3"><i class="bi bi-facebook fs-4"></i></a>
+                    <a href="#" class="text-white mx-3"><i class="bi bi-instagram fs-4"></i></a>
+                    <a href="#" class="text-white mx-3"><i class="bi bi-twitter fs-4"></i></a>
+                    <a href="#" class="text-white mx-3"><i class="bi bi-youtube fs-4"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p class="mb-0">&copy; 2025 Laptop Store. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        const totalPriceElement = document.getElementById('total-price');
+        const vatPriceElement = document.getElementById('vat-price');
+        const finalPriceElement = document.getElementById('final-price');
+        const EXCHANGE_RATE = 29000;
+
+        function updateTotalPrice() {
+            let total = 0;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.getAttribute('data-price')) * EXCHANGE_RATE;
+                }
+            });
+            const vat = total * 0.1; // VAT 10%
+            const final = total + vat;
+
+            totalPriceElement.textContent = `${total.toLocaleString()} VND`;
+            vatPriceElement.textContent = `${vat.toLocaleString()} VND`;
+            finalPriceElement.textContent = `${final.toLocaleString()} VND`;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotalPrice);
+        });
+
+        updateTotalPrice(); // Initialize on page load
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

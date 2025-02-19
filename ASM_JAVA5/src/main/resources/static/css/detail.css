@@ -1,0 +1,143 @@
+/* Toàn màn hình */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2; /* Nền xám nhạt để dễ chịu */
+    display: flex;
+    flex-direction: column; /* Đảm bảo phần header và container xếp theo chiều dọc */
+    justify-content: flex-start; /* Đảm bảo các phần sẽ xếp từ trên xuống */
+    min-height: 100vh; /* Căn giữa nội dung theo chiều dọc */
+}
+
+/* Header */
+header {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container for the product page */
+.container {
+    width: 85%; /* Thu nhỏ container lại */
+    max-width: 1000px; /* Giới hạn chiều rộng tối đa nhỏ hơn */
+    background-color: #ffffff; /* Màu nền trắng */
+    padding: 20px; /* Giảm padding */
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Giảm khoảng cách giữa các phần */
+    justify-content: center; /* Căn giữa nội dung bên trong */
+    margin-top: 20px; /* Tạo khoảng cách giữa header và container */
+}
+
+/* Title and product name */
+h1 {
+    font-size: 2.5em; /* Giảm kích thước tiêu đề */
+    font-weight: bold;
+    color: #000000; /* Đen đậm cho tiêu đề */
+    margin-bottom: 15px; /* Giảm khoảng cách bên dưới tiêu đề */
+    text-align: center;
+    width: 100%;
+}
+
+/* Product image */
+.product-image {
+    max-width: 80%; /* Thu nhỏ hình ảnh */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for product image */
+.product-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Product details section */
+.product-details {
+    flex: 1;
+    padding: 10px; /* Giảm padding */
+    text-align: center;
+}
+
+/* Price section */
+.price {
+    font-size: 1.5em; /* Giảm kích thước chữ giá */
+    font-weight: 600;
+    color: #333333; /* Xám đậm cho giá */
+    margin-bottom: 20px;
+}
+
+/* Product description section */
+.description {
+    font-size: 1.1em; /* Giảm font chữ */
+    color: #666666; /* Xám nhẹ cho mô tả */
+    margin-bottom: 20px;
+    padding: 0 10px; /* Thu hẹp padding */
+    line-height: 1.5;
+}
+
+/* Action buttons */
+.product-actions {
+    display: flex;
+    justify-content: center; /* Căn giữa các nút */
+    gap: 15px; /* Giảm khoảng cách giữa các nút */
+}
+
+.product-actions button {
+    background-color: #000000; /* Đen đậm cho nút */
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Giảm kích thước nút */
+    font-size: 1em; /* Giảm font chữ */
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 40%; /* Chiều rộng nút nhỏ hơn */
+    min-width: 120px; /* Đảm bảo nút không quá nhỏ */
+}
+
+.product-actions button:hover {
+    background-color: #333333; /* Xám đậm khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ hơn */
+}
+
+/* Error message */
+.error-message {
+    color: #990000; /* Đỏ đậm cho thông báo lỗi */
+    font-size: 1.2em; /* Giảm font chữ */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px; /* Giảm khoảng cách */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px; /* Giảm khoảng cách */
+    }
+    .product-image {
+        width: 70%; /* Thu nhỏ hình ảnh hơn nữa trên thiết bị nhỏ */
+    }
+    .product-details {
+        width: 90%;
+    }
+    .product-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* Giảm khoảng cách giữa các nút */
+    }
+    .product-actions button {
+        width: 100%; /* Chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+        min-width: unset;
+    }
+}

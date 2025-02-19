@@ -1,0 +1,142 @@
+/* Toàn màn hình */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0; /* Nền xám nhạt */
+    color: #333; /* Chữ đen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Khung chính */
+.change-password-container {
+    width: 100%;
+    max-width: 600px; /* Thu nhỏ khung */
+    padding: 15px; /* Đảm bảo không sát viền */
+    box-sizing: border-box;
+}
+
+/* Thẻ chính */
+.change-password-card {
+    background-color: #ffffff; /* Màu trắng cho thẻ */
+    border-radius: 12px; /* Bo góc mềm mại */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng giảm nhẹ */
+    overflow: hidden;
+    border: 1px solid #ccc; /* Viền xám */
+}
+
+/* Header */
+.change-password-header {
+    background-color: #333; /* Đen nhạt */
+    color: #fff;
+    padding: 1.8rem;
+    text-align: center;
+    border-bottom: 1px solid #555;
+}
+
+.change-password-header h3 {
+    margin: 0;
+    font-size: 1.8rem; /* Tiêu đề nhỏ hơn */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Phần nội dung */
+.change-password-body {
+    padding: 1.5rem; /* Padding giảm nhẹ */
+    background-color: #f8f8f8; /* Nền sáng dịu */
+}
+
+/* Input form */
+.form-control {
+    width: 100%;
+    padding: 12px; /* Giảm kích thước padding */
+    font-size: 0.95rem;
+    border-radius: 6px; /* Bo góc input nhỏ hơn */
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-bottom: 15px; /* Khoảng cách giữa các input nhỏ hơn */
+    box-sizing: border-box;
+    transition: all 0.3s ease; /* Hiệu ứng mượt */
+    color: #333; /* Chữ đen nhạt */
+}
+
+.form-control:focus {
+    border-color: #333; /* Viền đen nhạt */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); /* Hiệu ứng khi focus */
+    outline: none;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+    font-size: 0.9rem;
+}
+
+/* Nút bấm */
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 12px; /* Giảm kích thước nút */
+    font-size: 1rem; /* Giảm font chữ */
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #333; /* Đen nhạt */
+    border: none;
+    border-radius: 40px; /* Bo góc tròn */
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background-color: #555; /* Đen đậm hơn khi hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Bóng khi hover */
+}
+
+/* Footer */
+.change-password-footer {
+    margin-top: 15px; /* Giảm khoảng cách trên */
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666; /* Xám đậm hơn */
+}
+
+.change-password-footer a {
+    color: #333; /* Đen nhạt */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.change-password-footer a:hover {
+    color: #555; /* Đậm hơn khi hover */
+    text-decoration: underline;
+}
+
+/* Căn chỉnh form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Giảm khoảng cách đều giữa các thành phần */
+}
+
+/* Phản hồi cho màn hình nhỏ */
+@media (max-width: 768px) {
+    .change-password-container {
+        padding: 10px;
+    }
+
+    .change-password-card {
+        padding: 10px;
+    }
+
+    .change-password-header h3 {
+        font-size: 1.5rem; /* Tiêu đề nhỏ hơn */
+    }
+}

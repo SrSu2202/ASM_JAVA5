@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Thanh Toán</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(45deg, #fffde5 20%, #2c3e50 80%);
+            font-family: 'Arial', sans-serif;
+        }
+
+        h2, h4 {
+            color: #34495e;
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 0 5px rgba(50, 115, 220, 0.3);
+            border-color: #3273dc;
+        }
+
+        .form-check-label {
+            color: #2c3e50;
+        }
+
+        #order-summary {
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #total-amount, #total-with-vat {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        button {
+            border-radius: 8px;
+            padding: 10px 20px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-group-item {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-white shadow-sm w-100">
+    <div class="container-fluid d-flex justify-content-between align-items-center py-3 px-5">
+        <!-- Logo và Tên cửa hàng -->
+        <div class="d-flex align-items-center">
+            <a href="/home" style="text-decoration: none;">
+                <img th:src="@{/images/img/Star-Photoroom.png}" alt="Logo" width="40" height="40" class="me-3">
+                <span class="fw-bold fs-3 text-dark">LaptopStore</span>
+            </a>
+        </div>
+
+        <!-- Thanh tìm kiếm -->
+        <div class="input-group w-50">
+            <input type="text" class="form-control" placeholder="Tìm sản phẩm ...">
+            <button class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
+        </div>
+
+        <!-- Tài khoản và giỏ hàng -->
+        <div class="d-flex gap-4 align-items-center">
+            <!-- Tài khoản Dropdown -->
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tài khoản
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item d-flex align-items-center justify-content-between">
+                        <span class="text-primary">Xin Chào: Nguyễn Văn A</span>
+                        <i class="bi bi-person-circle"></i>
+                    </li>
+                    <li><a href="/changepass" class="dropdown-item">Đổi mật khẩu</a></li>
+                    <li><a href="/info" class="dropdown-item">Đổi thông tin</a></li>
+                    <li><a href="/logout" class="dropdown-item">Đăng xuất</a></li>
+                    <li><a href="/login" class="dropdown-item">Đăng nhập</a></li>
+                    <li><a href="/register" class="dropdown-item">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- Giỏ hàng -->
+            <a href="/cart" class="text-dark text-decoration-none"><i class="fas fa-shopping-basket fs-5"></i></a>
+        </div>
+    </div>
+</header>
+
+<div class="container py-5 mt-3 mb-3">
+    <h2 class="text-center mb-4">Trang Thanh Toán</h2>
+
+    <form>
+        <!-- Thông tin khách hàng -->
+        <div class="mb-4">
+            <h4>Thông tin khách hàng</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="fullname" class="form-label">Họ và Tên</label>
+                    <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Nhập email">
+                </div>
+            </div>
+        </div>
+
+        <!-- Địa chỉ giao hàng -->
+        <div class="mb-4">
+            <h4>Địa chỉ giao hàng</h4>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="address" class="form-label">Địa chỉ</label>
+                    <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="city" class="form-label">Tỉnh/Thành phố</label>
+                    <select id="city" class="form-select">
+                        <option selected>Chọn Tỉnh/Thành phố</option>
+                        <option value="1">Hà Nội</option>
+                        <option value="2">TP. Hồ Chí Minh</option>
+                        <option value="3">Đà Nẵng</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="district" class="form-label">Quận/Huyện</label>
+                    <select id="district" class="form-select">
+                        <option selected>Chọn Quận/Huyện</option>
+                        <option value="1">Ba Đình</option>
+                        <option value="2">Cầu Giấy</option>
+                        <option value="3">Thanh Xuân</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phương thức thanh toán -->
+        <div class="mb-4">
+            <h4>Phương thức thanh toán</h4>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" checked>
+                <label class="form-check-label" for="cod">
+                    Thanh toán khi nhận hàng (COD)
+                </label>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="bank" value="bank">
+                <label class="form-check-label" for="bank">
+                    Chuyển khoản ngân hàng
+                </label>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="credit" value="credit">
+                <label class="form-check-label" for="credit">
+                    Thanh toán bằng thẻ tín dụng
+                </label>
+            </div>
+        </div>
+
+        <!-- Tổng đơn hàng -->
+        <div class="mb-4">
+            <h4>Tổng đơn hàng</h4>
+            <ul class="list-group mb-3" id="order-summary">
+                <!-- Nội dung đơn hàng sẽ được cập nhật từ giỏ hàng -->
+            </ul>
+            <p class="d-flex justify-content-between align-items-center">
+                <span>Tổng cộng:</span>
+                <span id="total-amount">0,00 VND</span>
+            </p>
+            <p class="d-flex justify-content-between align-items-center">
+                <span>Tổng cộng bao gồm VAT:</span>
+                <span id="total-with-vat">0,00 VND</span>
+            </p>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Thanh toán</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Danh sách sản phẩm từ giỏ hàng
+        const cartItems = [
+            {name: "Máy tính xách tay 2 trong 1 GeoPad 110", price: 109.99, quantity: 1},
+            {name: "Tai nghe Microsoft Modern USB", price: 32.99, quantity: 1},
+        ];
+
+        const orderSummary = document.getElementById('order-summary');
+        const totalAmount = document.getElementById('total-amount');
+        const totalWithVAT = document.getElementById('total-with-vat');
+
+        let total = 0;
+
+        cartItems.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+            li.innerHTML = `${item.name} <span>${item.price.toFixed(2)} VND</span>`;
+            orderSummary.appendChild(li);
+
+            total += item.price * item.quantity;
+        });
+
+        totalAmount.textContent = `${total.toFixed(2)} VND`;
+        totalWithVAT.textContent = `${(total * 1.2).toFixed(2)} VND`; // Giả sử VAT là 20%
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

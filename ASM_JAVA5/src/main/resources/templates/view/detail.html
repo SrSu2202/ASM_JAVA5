@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Header nằm trên container -->
+<header class="bg-white shadow-sm w-100">
+    <div class="container-fluid d-flex justify-content-between align-items-center py-3">
+        <div class="d-flex align-items-center">
+            <a href="/home" style="text-decoration: none;">
+                <img th:src="@{/images/img/Star-Photoroom.png}" alt="Logo" width="40" height="40" class="me-3">
+                <span class="fw-bold fs-3 text-dark">LaptopStore</span>
+            </a>
+        </div>
+
+        <div class="input-group w-50">
+            <input type="text" class="form-control" placeholder="Tìm sản phẩm ....">
+            <button class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="d-flex gap-4 align-items-center">
+            <div class="d-flex gap-3">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Tài khoản </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item d-flex align-items-center justify-content-between">
+                            <span class="text-primary">Xin Chào: Nguyễn Văn A</span>
+                            <i class="bi bi-person-circle"></i>
+                        </li>
+                        <li><a href="/changepass" class="dropdown-item" >Đổi mật khẩu</a></li>
+                        <li><a href="/info" class="dropdown-item" >Đổi thông tin</a></li>
+                        <li><a href="/register" class="dropdown-item" >Đăng xuất</a></li>
+                        <li><a href="/login" class="dropdown-item" >Đăng nhập</a></li>
+                        <li><a href="/register" class="dropdown-item" >Đăng ký</a></li>
+                        <li><a href="/admin" class="dropdown-item" >AdminPage</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="/cart" class="text-dark text-decoration-none"><i class="fas fa-shopping-basket fs-5"></i></a>
+        </div>
+    </div>
+</header>
+
+<!-- Container bắt đầu ngay sau header -->
+<div class="container mt-3">
+    <div th:if="${true}">
+        <h1 th:text="'Laptop ASUS ROG Strix G15'">Laptop ASUS ROG Strix G15</h1>
+        <div class="product-details">
+            <img
+                    th:src="@{/images/img/HP-Icons_Gaming.webp}"
+                    alt="Laptop ASUS ROG Strix G15"
+                    class="product-image">
+            <p class="price">
+                <strong>Giá: </strong>
+                <span th:text="'25.990.000 VND'">25.990.000 VND</span>
+            </p>
+            <p class="description">
+                <span th:text="'Laptop gaming mạnh mẽ với CPU AMD Ryzen 7, GPU RTX 3060, màn hình 144Hz và thiết kế tối ưu cho hiệu năng.'">
+                    Laptop gaming mạnh mẽ với CPU AMD Ryzen 7, GPU RTX 3060, màn hình 144Hz và thiết kế tối ưu cho hiệu năng.
+                </span>
+            </p>
+            <div class="product-actions d-flex gap-2">
+                <a href="/cart" class="btn btn-primary w-100 w-md-auto">Thêm vào giỏ hàng</a>
+                <a href="/payment" class="btn btn-danger w-100 w-md-auto">Mua Ngay</a>
+            </div>
+        </div>
+    </div>
+    <div th:if="${false}">
+        <p class="error-message" th:text="'Không tìm thấy sản phẩm!'">Không tìm thấy sản phẩm!</p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
