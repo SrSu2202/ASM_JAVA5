@@ -115,6 +115,18 @@ public class ProductService {
         return productJPA.findByCategoryId(categoryId);
     }
 
+    public List<Product> searchProducts(String keyword) {
+        return productJPA.searchProductsByName(keyword);
+    }
+
+    public List<Product> filterProducts(Double minPrice, Double maxPrice) {
+        List<Product> products = productJPA.findProductsByPriceRange(minPrice, maxPrice);
+        System.out.println("Số sản phẩm trả về: " + products.size());
+        return products;
+    }
+
+
+
 
 
 }

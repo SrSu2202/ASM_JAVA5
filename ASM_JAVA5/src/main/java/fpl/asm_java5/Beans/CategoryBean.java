@@ -22,5 +22,4 @@ public class CategoryBean {
         category.setName(this.name);
         return category;
     }
-    //hfhfhfjgfj
 }

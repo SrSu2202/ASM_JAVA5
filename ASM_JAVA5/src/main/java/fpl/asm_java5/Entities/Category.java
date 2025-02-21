@@ -1,5 +1,6 @@
 package fpl.asm_java5.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,12 @@ public class Category {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
+
+    @Override
+    public String toString() {
+        return "Category{id=" + id + ", name='" + name + "'}";
+    }
 }

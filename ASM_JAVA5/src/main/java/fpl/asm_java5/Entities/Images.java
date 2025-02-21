@@ -1,5 +1,6 @@
 package fpl.asm_java5.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,5 +22,6 @@ public class Images {
 
     @ManyToOne
     @JoinColumn(name="product_id", nullable = false)
+    @JsonBackReference
     private Product product;
 }

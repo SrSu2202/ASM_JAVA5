@@ -9,11 +9,13 @@ import fpl.asm_java5.Service.CategoryService;
 import fpl.asm_java5.Service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 @Controller
 public class ProductController {
@@ -102,7 +104,7 @@ public class ProductController {
         List<Product> products = productService.getAllProducts();
         List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("categories", categories);
-        model.addAttribute("products", productJPA.findAll());
+        model.addAttribute("products", products);
         return "/view/home";
     }
 
@@ -114,10 +116,33 @@ public class ProductController {
         return "/view/productByCate.html";
     }
 
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Product> searchProducts(@RequestParam("keyword") String keyword) {
+        List<Product> products = productService.searchProducts(keyword);
+
+        // In ra toàn bộ danh sách sản phẩm
+        System.out.println("Products: " + products);
+
+        // In ra số lượng sản phẩm
+        System.out.println("Number of products found: " + products.size());
+
+        return products;
+    }
 
 
+    @GetMapping("/filter-products")
+    public ResponseEntity<List<Product>> filterProducts(@RequestParam Double minPrice, @RequestParam Double maxPrice) {
+        List<Product> products = productService.filterProducts(minPrice, maxPrice);
+        System.out.println("Số sản phẩm trả về API: " + products.size());
+        return ResponseEntity.ok(products);
+    }
 
-
+    @GetMapping("/get-all-products")
+    @ResponseBody
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
 
 
 }

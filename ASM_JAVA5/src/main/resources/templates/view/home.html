@@ -20,8 +20,8 @@
         </div>
 
         <div class="input-group w-50">
-            <input type="text" class="form-control" placeholder="Tìm sản phẩm ...">
-            <button class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
+            <input type="text" id="searchInput" class="form-control" placeholder="Tìm sản phẩm ...">
+            <button class="btn btn-outline-primary" id="searchBtn"><i class="fas fa-search"></i></button>
         </div>
         <div class="d-flex gap-4 align-items-center">
             <div class="d-flex gap-3">
@@ -104,23 +104,29 @@
         </div>
     </div>
 
+    <!-- Phần hiển thị sản phẩm phổ biến -->
     <div class="container py-5">
         <h2 class="text-center mb-4">Sản Phẩm Phổ Biến</h2>
         <div class="row g-4">
+            <div class="product-filter d-flex gap-2 p-3 bg-light rounded shadow-sm mx-auto" style="max-width: 400px;">
+                <input type="number" id="minPrice" class="form-control" placeholder="Giá thấp nhất">
+                <input type="number" id="maxPrice" class="form-control" placeholder="Giá cao nhất">
+                <button class="btn btn-primary" onclick="filterProducts()">Lọc</button>
+            </div>
+
             <div class="container mt-4">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <div id="productList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                     <th:block th:each="item : ${products}">
-                        <div class="col">
+                        <div class="col product-item" data-name="[[${item.name}]]">
                             <div class="card h-100 d-flex flex-column">
                                 <img th:src="@{'/images/' + ${item.images[0].image}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Ảnh sản phẩm">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title" th:text="${item.name}"></h5>
                                     <p class="card-text" th:text="${item.desc}"></p>
                                     <p class="text-danger fw-bold" th:text="${item.price} + ' VNĐ'"></p>
-                                    <!-- Ensure the buttons are at the bottom -->
                                     <div class="mt-auto d-flex justify-content-between">
-                                        <button class="btn btn-primary" th:data-id="${item.id}" th:text="'Thêm vào giỏ hàng'"></button>
-                                        <button class="btn btn-success" th:data-id="${item.id}" th:text="'Mua hàng'"></button>
+                                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                                        <button class="btn btn-success">Mua hàng</button>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +134,6 @@
                     </th:block>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -210,8 +215,102 @@
     </div>
 </footer>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const searchBtn = document.getElementById("searchBtn");
+        const productList = document.getElementById("productList");
+        const productCount = document.getElementById("productCount");
+
+        searchBtn.addEventListener("click", function () {
+            let keyword = searchInput.value.trim();
+            let url = keyword === "" ? "/get-all-products" : `/search?keyword=${encodeURIComponent(keyword)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(products => {
+                    productList.innerHTML = "";
+                    if (productCount) {
+                        productCount.textContent = `Số lượng sản phẩm tìm thấy: ${products.length}`;
+                    }
+
+                    if (products.length === 0) {
+                        productList.innerHTML = "<p class='text-center'>Không tìm thấy sản phẩm nào.</p>";
+                        return;
+                    }
+
+                    products.forEach(item => {
+                        const imageUrl = item.images?.length > 0 ? `/images/${item.images[0].image}` : "/images/default.jpg";
+                        const productHTML = `
+                        <div class="col product-item">
+                            <div class="card h-100 d-flex flex-column">
+                                <img src="${imageUrl}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Ảnh sản phẩm">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">${item.name}</h5>
+                                    <p class="card-text">${item.desc || "Không có mô tả"}</p>
+                                    <p class="text-danger fw-bold">${item.price ? item.price + " VNĐ" : "Liên hệ"}</p>
+                                    <div class="mt-auto d-flex justify-content-between">
+                                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                                        <button class="btn btn-success">Mua hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        productList.innerHTML += productHTML;
+                    });
+                })
+                .catch(error => console.error("Lỗi khi tìm kiếm sản phẩm:", error));
+        });
+    });
 
 </script>
+
+
+<script>
+    function filterProducts() {
+        let minPrice = document.getElementById('minPrice').value;
+        let maxPrice = document.getElementById('maxPrice').value;
+
+        // Nếu cả minPrice và maxPrice đều trống, gọi API lấy tất cả sản phẩm
+        let url = (minPrice === "" && maxPrice === "") ? "/get-all-products" : `/filter-products?minPrice=${minPrice || 0}&maxPrice=${maxPrice || Infinity}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(products => {
+                let productContainer = document.getElementById('productList');
+                productContainer.innerHTML = '';
+
+                if (products.length === 0) {
+                    productContainer.innerHTML = '<p class="text-center">Không tìm thấy sản phẩm nào.</p>';
+                    return;
+                }
+
+                products.forEach(product => {
+                    let imageUrl = product.images?.length > 0 ? `/images/${product.images[0].image}` : "/images/default.jpg";
+                    let productElement = document.createElement('div');
+                    productElement.className = 'col product-item';
+                    productElement.innerHTML = `
+                    <div class="card h-100 d-flex flex-column">
+                        <img src="${imageUrl}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Ảnh sản phẩm">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">${product.desc}</p>
+                            <p class="text-danger fw-bold">${product.price} VNĐ</p>
+                            <div class="mt-auto d-flex justify-content-between">
+                                <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                                <button class="btn btn-success">Mua hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                    productContainer.appendChild(productElement);
+                });
+            })
+            .catch(error => console.error('Lỗi khi lọc sản phẩm:', error));
+    }
+
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

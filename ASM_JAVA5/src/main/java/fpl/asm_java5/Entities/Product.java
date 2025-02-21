@@ -1,5 +1,7 @@
 package fpl.asm_java5.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,8 +36,14 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cat_id")
+    @JsonBackReference
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Images> images;
+
+    @Override
+    public String toString() {
+        return "Product{id=" + id + ", name='" + name + "', price=" + price + "}";
+    }
 }
